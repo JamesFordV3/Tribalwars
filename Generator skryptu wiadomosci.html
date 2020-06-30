@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {
+  background-color: coral
+  ;
+}
+</style>
+<body>
+<br>
+<label for="fname">Tytuł wiadomości:</label>
+<input type="text" id="fname" name="fname" style="width: 250px" value='Np. Operacja: "Pustynna Burza"'><br>
+<br>
+<textarea id="wiadwstepna" name="text" style="width: 40%; height: 175px"></textarea>
+
+<br>
+
+<h1>Tu wklej wiadomości:</h1>
+
+<textarea id="wiad1" name="text" style="width: 98%; height: 250px"></textarea>
+
+<button type="button" onclick=myFunction()>Generuj</button>
+
+<h1> </h1>
+<textarea id="wiad2" name="text" style="width: 98%; height: 250px"></textarea>
+<script>
+document.getElementById("wiadwstepna").value = 'Tu wpisz wiadomość wstępną. Np. Witam, Proszę o wykonanie poniższych rozkazów. - UWAGA W TYM POLU NIE MOŻE BYĆ ZNAKU ENTER!'; 
+
+var getFromBetween = {
+    results:[],
+    string:"",
+    getFromBetween:function (sub1,sub2) {
+        if(this.string.indexOf(sub1) < 0 || this.string.indexOf(sub2) < 0) return false;
+        var SP = this.string.indexOf(sub1)+sub1.length;
+        var string1 = this.string.substr(0,SP);
+        var string2 = this.string.substr(SP);
+        var TP = string1.length + string2.indexOf(sub2);
+        return this.string.substring(SP,TP);
+    },
+    removeFromBetween:function (sub1,sub2) {
+        if(this.string.indexOf(sub1) < 0 || this.string.indexOf(sub2) < 0) return false;
+        var removal = sub1+this.getFromBetween(sub1,sub2)+sub2;
+        this.string = this.string.replace(removal,"");
+    },
+    getAllResults:function (sub1,sub2) {
+        if(this.string.indexOf(sub1) < 0 || this.string.indexOf(sub2) < 0) return;
+
+        var result = this.getFromBetween(sub1,sub2);
+        this.results.push(result);
+        this.removeFromBetween(sub1,sub2);
+
+        if(this.string.indexOf(sub1) > -1 && this.string.indexOf(sub2) > -1) {
+            this.getAllResults(sub1,sub2);
+        }
+        else return;
+    },
+    get:function (string,sub1,sub2) {
+        this.results = [];
+        this.string = string;
+        this.getAllResults(sub1,sub2);
+        return this.results;
+    }
+};
+
+function myFunction() {
+  wiadomosci = document.getElementById("wiad1").value;
+  wiadomosci = wiadomosci.split("-- Gracz: ");
+  wiadomosci.shift();
+  
+  wiadddwstepna = document.getElementById("wiadwstepna").value;
+
+  var gracze = [" "];
+  var wiadomosc = [" "];
+  for( var i = 0; i < wiadomosci.length; i++ ){
+  gracze[i] = getFromBetween.get(wiadomosci[i].toString(),"[player]","[/player]").toString();
+  wiadomosc[i] = getFromBetween.get(wiadomosci[i].toString(),"[spoiler]","[/spoiler]");
+	}
+  gracze = gracze.join("efyfp2");
+  wiadomosc =  wiadomosc.join("j83rhe");
+  //wiadomosc = wiadomosc.replaceAll("\n", "nvnyqhverg");
+  wiadomosc = wiadomosc.split("\n").join("nvnyqhverg");
+  
+  wyj3 = "javascript: \n\nvar cook=\"809884\";\n\n";
+  wyj1 = "var gracze = \"" + gracze + "\";\n\n";
+  wyj2 = "var wiadomosc = \"" + wiadomosc + "\";\n\n";
+  wyj4 = "if(!(document.getElementById(\"rc-anchor-alert\"))){\nif(document.querySelector('input[value=\"Wyślij\"]')){\n\nvar doc=document;\nif(window.frames.length>0)doc=window.main.document;\nurl=document.URL;\ngracze=gracze.split(\"efyfp2\");\nwiadomosc=wiadomosc.split(\"j83rhe\");\n\nif(url.indexOf(\"screen=mail&mode=new\")==-1)alert(\"Ten skrypt należy odpalić w oknie Nowej wiadomości\");\n\nindex=0;\n\nmsgcookie=document.cookie.match(\"(^|;) ?\"+cook+\"=([^;]*)(;|$)\");\nif(msgcookie!=null)index=parseInt(msgcookie[2]);\nif(index>=gracze.length-1)alert(\"To już ostatnia wiadomość!\");\nif(index>=gracze.length-1)index=0;\nindex=index+1;\nvar d1 = new Date();\ncookie_date=new Date(d1.getFullYear(),d1.getMonth()+1,d1.getDate());\ndocument.cookie =cook+\"=\"+index+\";expires=\"+cookie_date.toGMTString ();\n\ndocument.querySelector('input[name=\"subject\"]').value = '"
+  tytul = document.getElementById("fname").value;
+  /*wyj5 = "';\ndocument.getElementsByClassName(\"autocomplete ui-autocomplete-input\")[0].value = gracze[index];\ndocument.getElementById(\"message\").value = \"[spoiler=Rozkazy dla gracza \" + gracze[index]+ \"]\" + wiadomosc[index].replaceAll(\"nvnyqhverg\", \"\\n\\n\").substr(1) + \"[/spoiler]\\n[b]W razie błędów proszę o wiadomość zwrotną w tym temacie.[/b]\";\n\ndocument.querySelector('input[value=\"Wyślij\"]').click();\n}\n}\nif(!(document.getElementById(\"rc-anchor-alert\"))){\nif(!(document.querySelector('input[value=\"Wyślij\"]'))){\nvar aTags = document.getElementsByTagName(\"a\");\nvar found;\nfor (var i = 0; i < aTags.length; i++) {\n  if (aTags[i].textContent == \"Napisz wiadomość\") {\n    found = aTags[i];\n    break;\n  }\n}\nfound.click();\n}\n}";*/
+  wyj5 = "';\ndocument.getElementsByClassName(\"autocomplete ui-autocomplete-input\")[0].value = gracze[index];\ndocument.getElementById(\"message\").value = \"";
+  wyj6 = "\\n\" + \"[spoiler=Rozkazy dla gracza \" + gracze[index]+ \"]\" + wiadomosc[index].split(\"nvnyqhverg\").join(\"\\n\\n\").substr(1) + \"[/spoiler]\\n[b]W razie błędów proszę o wiadomość zwrotną w tym temacie.[/b]\";\n\ndocument.querySelector('input[value=\"Wyślij\"]').click();\n}\n}\nif(!(document.getElementById(\"rc-anchor-alert\"))){\nif(!(document.querySelector('input[value=\"Wyślij\"]'))){\nvar aTags = document.getElementsByTagName(\"a\");\nvar found;\nfor (var i = 0; i < aTags.length; i++) {\n  if (aTags[i].textContent == \"Napisz wiadomość\") {\n    found = aTags[i];\n    break;\n  }\n}\nfound.click();\n}\n}";
+
+  wyjscieC = wyj3 + wyj1 + wyj2 + wyj4 + tytul + wyj5 + wiadddwstepna + wyj6;
+  document.getElementById("wiad2").value = wyjscieC;
+  
+}
+
+
+</script>
+
+</body>
+</html>
